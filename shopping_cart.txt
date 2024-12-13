@@ -1,1 +1,1 @@
-cart app is cretaed for shopping
+cart app is cretaed for shopping and cart management

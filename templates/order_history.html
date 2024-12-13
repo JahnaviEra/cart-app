@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eeeaea;
+            background-image: url('/media/images/shoppin.jpg');
+            background-repeat:no-repeat;
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgb(182, 176, 176);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(1, 1, 1, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #141313;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        .order-info {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #3b3838;
+        }
+
+        .order-info span {
+            font-weight: bold;
+        }
+
+        .no-orders {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Your Order History</h1>
+
+        {% if order_details %}
+            {% for order in order_details %}
+                <div class="order-info">
+                    <p><span>Order ID:</span> {{ order.id }}</p>
+                    <p><span>Order Date:</span> {{ order.order_date }}</p>
+                    <p><span>Total Price:</span> ${{ order.total_price }}</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for product in order.products %}
+                            <tr>
+                                <td>{{ product.product_name }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>${{ product.price }}</td>
+                                <td>${{ product.total_price }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <hr>
+            {% endfor %}
+        {% else %}
+            <p class="no-orders">You have no orders yet.</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>
